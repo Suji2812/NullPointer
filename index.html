@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NullPointer | Find the bias your AI is hiding</title>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- HEADER SECTION -->
+    <header class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="brand">
+                <i class="fa-solid fa-ban brand-icon"></i>
+                <span class="brand-text">NullPointer</span>
+            </a>
+            <nav class="nav-links">
+                <a href="#how-it-works" class="nav-link">How it works</a>
+                <a href="#features" class="nav-link">Features</a>
+                <a href="upload.html" class="btn btn-primary btn-sm">Try Now</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="container hero-container">
+            <h1 class="hero-title">Find the bias<br>your AI is <span class="text-gradient">hiding</span></h1>
+            <p class="hero-subtitle">
+                Audit datasets for bias. Get a fairness score (0–100) with clear, actionable insights.</p>
+            <div class="hero-actions">
+                <a href="upload.html" class="btn btn-primary btn-lg">Audit Dataset Now <i
+                        class="fa-solid fa-arrow-right" style="margin-left: 8px;"></i></a>
+                <a href="#how-it-works" class="btn btn-ghost btn-lg">See a demo</a>
+            </div>
+
+            <div class="hero-viz-card">
+                <div class="viz-top-label">
+                    Bias Visualisation<span class="demo-label">(sample dataset)</span>
+                </div>
+                <canvas id="biasCanvas"></canvas>
+                <div class="viz-legend">
+                    <span class="viz-dot dot-green"></span>Approved
+                    <span class="viz-dot dot-red"></span>Rejected
+                    <span class="viz-dot dot-yellow"></span>Under review
+                </div>
+                <div class="viz-stats">
+                    <div class="viz-stat">
+                        <div class="viz-stat-num danger" id="stat1">0%</div>
+                        <div class="viz-stat-lbl">Women rejected in engineering</div>
+                    </div>
+                    <div class="viz-stat">
+                        <div class="viz-stat-num warning" id="stat2">0×</div>
+                        <div class="viz-stat-lbl">Bias multiplier for rural applicants</div>
+                    </div>
+                    <div class="viz-stat">
+                        <div class="viz-stat-num danger" id="stat3">0%</div>
+                        <div class="viz-stat-lbl">Loan denials linked to zip code</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS SECTION -->
+    <section id="how-it-works" class="how-it-works">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-icon">
+                        <i class="fa-solid fa-file-csv"></i>
+                    </div>
+                    <h3 class="step-title">1. Upload your dataset</h3>
+                    <p class="step-desc">Provide your tabular data containing decisions and sensitive attributes
+                        seamlessly.</p>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-icon">
+                        <i class="fa-solid fa-brain"></i>
+                    </div>
+                    <h3 class="step-title">2. Analyze bias patterns
+
+                    </h3>
+                    <p class="step-desc">Statistical metrics evaluate outcomes across sensitive attributes to identify
+                        bias patterns.</p>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-icon">
+                        <i class="fa-solid fa-chart-pie"></i>
+                    </div>
+                    <h3 class="step-title">3. Get your results</h3>
+                    <p class="step-desc">Receive a Fairness Score (0-100) instantly with an actionable mitigation plan.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES SECTION -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">Powerful Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fa-solid fa-fingerprint"></i></div>
+                    <h3 class="feature-title">Bias Fingerprinting</h3>
+                    <p class="feature-desc">Detects intersectional bias across combined attributes often missed by
+                        traditional tools.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fa-solid fa-gauge-high"></i></div>
+                    <h3 class="feature-title">Fairness Score</h3>
+                    <p class="feature-desc">A single 0–100 score with intuitive color coding to instantly gauge your
+                        model's holistic health.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                    <h3 class="feature-title">Plain Language Explanations</h3>
+                    <p class="feature-desc">Clear, human-readable explanations of bias metrics and their real-world
+                        impact.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fa-solid fa-code-compare"></i></div>
+                    <h3 class="feature-title">Counterfactual Testing</h3>
+                    <p class="feature-desc">Interactive "what if" analysis per record to see how altering an attribute
+                        changes the outcome.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHY NULLPOINTER SECTION -->
+    <section class="why-section" id="why">
+        <div class="container">
+            <h2 class="section-title">Why NullPointer?</h2>
+            <p class="hero-subtitle" style="text-align: center; margin-top: -40px; margin-bottom: 60px;">Traditional
+                bias tools scratch the surface. NullPointer finds what they miss.</p>
+
+            <div class="comparison-grid">
+                <!-- Card 1 -->
+                <div class="comparison-card">
+                    <div class="comp-side comp-left">
+                        <div class="comp-label danger">Traditional Tools</div>
+                        <p>Checks one attribute at a time</p>
+                    </div>
+                    <div class="comp-badge">VS</div>
+                    <div class="comp-side comp-right">
+                        <div class="comp-label success">NullPointer</div>
+                        <p>Detects intersectional bias across combined attributes : race + gender + location together
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="comparison-card">
+                    <div class="comp-side comp-left">
+                        <div class="comp-label danger">Traditional Tools</div>
+                        <p>Returns confusing statistical output</p>
+                    </div>
+                    <div class="comp-badge">VS</div>
+                    <div class="comp-side comp-right">
+                        <div class="comp-label success">NullPointer</div>
+                        <p>Explains bias in plain English any HR manager can understand and act on</p>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="comparison-card">
+                    <div class="comp-side comp-left">
+                        <div class="comp-label danger">Traditional Tools</div>
+                        <p>No legal context provided</p>
+                    </div>
+                    <div class="comp-badge">VS</div>
+                    <div class="comp-side comp-right">
+                        <div class="comp-label success">NullPointer</div>
+                        <p>Maps findings to EEOC guidelines and EU AI Act compliance thresholds</p>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="comparison-card">
+                    <div class="comp-side comp-left">
+                        <div class="comp-label danger">Traditional Tools</div>
+                        <p>Shows bias after damage is done</p>
+                    </div>
+                    <div class="comp-badge">VS</div>
+                    <div class="comp-side comp-right">
+                        <div class="comp-label success">NullPointer</div>
+                        <p>Counterfactual testing proves discrimination on individual records before deployment</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SDG BADGE SECTION -->
+    <section class="sdg-section">
+        <div class="container">
+            <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+                <div class="sdg-badge">
+                    <div class="sdg-icon">10</div>
+                    <div class="sdg-text">UN SDG 10 — Reduced Inequalities</div>
+                </div>
+
+                <div class="sdg-badge" style="background: rgba(255,140,0,0.1); border-color: rgba(255,140,0,0.3);">
+                    <div class="sdg-icon" style="background: #FF8C00;">5</div>
+                    <div class="sdg-text">UN SDG 5 — Gender Equality</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER SECTION -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-brand">
+                <i class="fa-solid fa-ban"></i> NullPointer
+            </div>
+            <div class="footer-text">
+                &copy; 2026 Google Solution Challenge
+            </div>
+        </div>
+    </footer>
+    <script src="config.js"></script>
+    <script>
+        const canvas = document.getElementById('biasCanvas');
+        const ctx = canvas.getContext('2d');
+        const W = Math.min(700, Math.max(320, canvas.parentElement.offsetWidth - 40));
+        const H = 220;
+        canvas.width = W;
+        canvas.height = H;
+        canvas.style.width = '100%';
+        canvas.style.height = H + 'px';
+
+        const APPROVED = '#00C48C';
+        const REJECTED = '#FF4B4B';
+        const REVIEW = '#FFB547';
+
+        const groups = [
+            { label: 'Male', x: W * 0.2, approveRate: 0.82, count: 36 },
+            { label: 'Female', x: W * 0.5, approveRate: 0.34, count: 36 },
+            { label: 'Rural Women 45+', x: W * 0.8, approveRate: 0.08, count: 28 },
+        ];
+
+        const dots = [];
+        groups.forEach(g => {
+            for (let i = 0; i < g.count; i++) {
+                const rand = Math.random();
+                const outcome = rand < g.approveRate ? 'approved'
+                    : rand < g.approveRate + 0.1 ? 'review' : 'rejected';
+                dots.push({
+                    tx: g.x + (Math.random() - 0.5) * 90,
+                    ty: H * 0.45 + (Math.random() - 0.5) * 130,
+                    color: outcome === 'approved' ? APPROVED
+                        : outcome === 'review' ? REVIEW : REJECTED,
+                    outcome, opacity: 0,
+                    delay: Math.random() * 50 + i * 0.9,
+                    group: g,
+                });
+            }
+        });
+
+        let frame = 0;
+
+        function drawLabel(g) {
+            const groupDots = dots.filter(d => d.group === g);
+            const rejected = groupDots.filter(d => d.outcome === 'rejected').length;
+            const pct = Math.round((rejected / groupDots.length) * 100);
+            ctx.textAlign = 'center';
+            ctx.font = '500 11px Inter, sans-serif';
+            ctx.fillStyle = 'rgba(139,143,168,0.9)';
+            ctx.fillText(g.label, g.x, H * 0.9);
+            ctx.font = '700 12px Inter, sans-serif';
+            ctx.fillStyle = pct > 50 ? REJECTED : pct > 25 ? REVIEW : APPROVED;
+            ctx.fillText(pct + '% rejected', g.x, H * 0.97);
+        }
+
+        function countUp(id, target, suffix, duration) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            const start = Date.now();
+            const isDecimal = target % 1 !== 0;
+            const tick = () => {
+                const p = Math.min(1, (Date.now() - start) / duration);
+                const val = target * p;
+                el.textContent = (isDecimal ? val.toFixed(1) : Math.round(val)) + suffix;
+                if (p < 1) requestAnimationFrame(tick);
+            };
+            tick();
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, W, H);
+            frame++;
+            dots.forEach(d => {
+                if (frame < d.delay) return;
+                d.opacity = Math.min(1, d.opacity + 0.05);
+                ctx.globalAlpha = d.opacity;
+                ctx.beginPath();
+                ctx.arc(d.tx, d.ty, 5, 0, Math.PI * 2);
+                ctx.fillStyle = d.color;
+                ctx.fill();
+                ctx.globalAlpha = d.opacity * 0.3;
+                ctx.strokeStyle = d.color;
+                ctx.lineWidth = 1;
+                ctx.stroke();
+                ctx.globalAlpha = 1;
+            });
+            if (frame > 70) groups.forEach(drawLabel);
+            if (frame === 120) {
+                countUp('stat1', 67, '%', 1200);
+                countUp('stat2', 5.8, '×', 1400);
+                countUp('stat3', 40, '%', 1600);
+            }
+            if (frame < 200) requestAnimationFrame(animate);
+        }
+
+        animate();
+    </script>
+</body>
+
+</html>

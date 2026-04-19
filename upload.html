@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NullPointer | Upload Dataset</title>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- HEADER SECTION -->
+    <header class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="brand">
+                <i class="fa-solid fa-ban brand-icon"></i>
+                <span class="brand-text">NullPointer</span>
+            </a>
+            <nav class="nav-links">
+                <a href="index.html" class="nav-link"><i class="fa-solid fa-arrow-left" style="margin-right: 8px;"></i> Back to Home</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container" style="padding-top: 140px; padding-bottom: 80px;">
+        <h1 style="margin-bottom: 40px; font-size: 3rem; letter-spacing: -1px;">Audit Your Dataset for Bias</h1>
+        <p class="text-muted" style="margin-bottom: 24px;">
+  Detect bias in decision outcomes across sensitive attributes using fairness analysis
+</p>
+        <div class="upload-grid">
+            <!-- LEFT COLUMN -->
+            <div class="upload-left">
+                <div class="drop-zone" id="dropZone">
+                    <i class="fa-solid fa-cloud-arrow-up" style="font-size: 3.5rem; color: var(--primary); margin-bottom: 24px;"></i>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 8px;">Upload your dataset (CSV) to begin bias analysis</h3>
+                    <p class="text-muted">Max 1,000 rows • Optimized for hiring, loan, and medical datasets</p>
+                    <input type="file" id="fileInput" accept=".csv" style="display: none;">
+                </div>
+
+                <div class="file-info-card" id="fileInfoCard" style="display: none;">
+                    <div style="background: rgba(0, 196, 140, 0.1); padding: 16px; border-radius: 12px; color: var(--primary);">
+                        <i class="fa-solid fa-file-csv" style="font-size: 2rem;"></i>
+                    </div>
+                    <div class="file-details">
+                        <div class="file-name" id="fileName">dataset.csv</div>
+                        <div class="file-meta" id="fileMeta">0 rows • 0 columns</div>
+                    </div>
+                    <button class="btn btn-ghost btn-sm" id="btnRemoveFile" style="margin-left: auto;">Change File</button>
+                </div>
+                <div class="data-preview-container" id="previewContainer" style="display: none;">
+                    <h4 style="margin-bottom: 8px; color: var(--text);">
+                     Dataset Preview 
+                    <span style="color: var(--text-muted); font-weight: 400; font-size: 0.9rem;">
+                    (First 5 Rows)
+                </span>
+                </h4>
+                <div class="table-wrapper">
+                <table class="data-table" id="dataTable">
+                <thead><tr id="tableHead"></tr></thead>
+                <tbody id="tableBody"></tbody>
+                </table>
+                </div>
+            </div>
+        </div>
+                <div class="sample-dataset-section">
+                    <p class="text-muted" style="font-size: 0.95rem; margin-bottom: 16px;">No dataset? Try our sample instead.</p>
+                    <button class="btn btn-ghost" id="btnLoadSample" style="padding: 12px 24px;">
+                        <i class="fa-solid fa-database" style="color: var(--primary); margin-right: 8px;"></i> Load Sample Dataset (UCI Adult Income)
+                    </button>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN -->
+            <div class="upload-right">
+                <div class="config-card">
+                    <h3 style="margin-bottom: 32px; font-size: 1.5rem;">Configure Analysis</h3>
+                    
+                    <div class="form-group">
+                        <label>What does this dataset decide?</label>
+                        <select class="form-control" id="decisionType">
+                            <option value="">Select decision context...</option>
+                            <option value="hiring">Hiring decisions</option>
+                            <option value="loan">Loan approvals</option>
+                            <option value="medical">Medical triage</option>
+                            <option value="other">Other (Please specify)</option>
+                        </select>
+                        <input type="text" class="form-control" id="customDecisionType" placeholder="Enter decision context" style="display: none; margin-top: 12px;">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Which column represents the decision outcome? (Target)</label>
+                        <select class="form-control" id="targetColumn" disabled>
+                            <option value="">Select a dataset to continue</option>
+                        </select>
+                        <input type="text" class="form-control" id="customTargetColumn" placeholder="Enter target column" style="display: none; margin-top: 12px;">
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 32px;">
+                        <label>Which columns might contain sensitive attributes?</label>
+                        <div class="text-muted" style="font-size: 0.9rem; margin-top: -8px; margin-bottom: 16px;">We'll suggest likely sensitive attributes (e.g., gender, age, location)</div>
+                        <div class="checkbox-group" id="sensitiveAttributes" style="opacity: 0.5; pointer-events: none;">
+                            <div style="padding: 16px; font-size: 0.95rem; color: var(--text-muted); text-align: center;">Upload a dataset to select columns</div>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary btn-lg" 
+                        style="width:100%;justify-content:center;pointer-events:none;opacity:0.5;" 
+                         id="btnAnalyzeLink">
+                         Analyze for Bias 
+                        <i class="fa-solid fa-arrow-right" style="margin-left:8px;"></i>
+</button>
+<p class="text-muted" style="font-size: 0.85rem; margin-top: 8px;">
+  Upload and configure your dataset to enable analysis
+</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER SECTION -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-brand">
+                <i class="fa-solid fa-ban"></i> NullPointer
+            </div>
+            <div class="footer-text">
+                &copy; 2026 Google Solution Challenge
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Logic -->
+     <script src="config.js"></script>
+    <script src="upload.js"></script>
+</body>
+</html>

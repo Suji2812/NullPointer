@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NullPointer | Analysis Results</title>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- PAGE HEADER -->
+    <header class="navbar">
+        <div class="container nav-container" style="height: 72px;">
+            <div style="display: flex; align-items: center; gap: 24px;">
+                <a href="upload.html" class="nav-link" style="color: var(--text); font-weight: 600;"><i class="fa-solid fa-arrow-left" style="margin-right: 8px;"></i> Back</a>
+                <div style="width: 1px; height: 32px; background: var(--border);"></div>
+                <div style="display: flex; flex-direction: column;">
+                    <span id="fileNameDisplay" style="font-weight: 600; font-size: 1rem;">
+                            dataset.csv
+                    </span>
+                    <span style="font-size: 0.85rem; color: var(--text-muted);"><i class="fa-regular fa-clock"></i> Analyzed just now</span>
+                </div>
+                <span style="font-size: 0.8rem; color: var(--text-muted); margin-top: 2px;">
+                    Analysis based on uploaded dataset
+                </span>
+            </div>
+            <button class="btn btn-ghost btn-sm" style="border-radius: 8px;" onclick="window.print()"><i class="fa-regular fa-file-pdf" style="margin-right: 8px;"></i> Export PDF Report</button>
+        </div>
+    </header>
+
+    <main class="container" style="padding-top: 120px; padding-bottom: 80px;">
+        
+        <!-- TOP ROW METRICS -->
+        <div class="metrics-row">
+            <!-- 1. Fairness Score -->
+            <div class="metric-card score-card">
+                <div class="score-ring metric-ring" style="width: 110px; height: 110px;">
+                     <span class="score-number" id="fairnessScore">0</span>
+                    <span class="score-max" style="font-size: 1rem; margin-bottom: -12px;">/100</span>
+                </div>
+                <div style="margin-top: 24px;">
+                    <div id="scoreLabel" style="color: var(--danger); font-weight: 700; font-size: 1.15rem; letter-spacing: -0.5px; margin-bottom: 4px;">Critical Bias Detected</div>
+                    <div class="text-muted" style="font-size: 0.95rem;">Holistic Fairness Score</div>
+                </div>
+            </div>
+            
+            <!-- 2. Records Analyzed -->
+            <div class="metric-card">
+                <div class="metric-icon"><i class="fa-solid fa-server"></i></div>
+                <div class="metric-value" id="recordsAnalyzed">0</div>
+                <div class="text-muted" style="font-weight: 500;">Records Analyzed</div>
+            </div>
+            
+            <!-- 3. Bias Patterns -->
+            <div class="metric-card">
+                <div class="metric-icon" style="color: var(--warning); background: rgba(255, 181, 71, 0.1);"><i class="fa-solid fa-network-wired"></i></div>
+                <div class="metric-value" id="biasPatterns" style="color: var(--warning);">0</div>
+                <div class="text-muted" style="font-weight: 500;">Bias Patterns Detected</div>
+            </div>
+        </div>
+
+        <!-- GEMINI EXPLANATION CARD -->
+        <div class="gemini-card section-card">
+            <div class="gemini-header">
+                <div class="gemini-logo"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                <h3 style="margin: 0; font-size: 1.3rem;">Bias Analysis Summary</h3>
+            </div>
+            
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="plain">Plain English</button>
+                <button class="tab-btn" data-tab="tech">Technical Metrics</button>
+            </div>
+            <div style="margin-top: 12px; font-size: 0.85rem; color: var(--text-muted);">
+                Computed using demographic parity & equalized odds
+            </div>
+            
+            <div class="tab-content active" id="tab-plain">
+               <p id="plainEnglishText" style="font-size: 1.15rem; line-height: 1.6; color: var(--text);">
+                    Analyzing bias patterns...
+                </p>
+            </div>
+            
+            <div class="tab-content" id="tab-tech">
+                <table class="data-table" style="background: transparent;">
+                    <thead>
+                        <tr>
+                            <th>Fairness Metric</th>
+                            <th>Value</th>
+                            <th>Target Threshold</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="font-weight: 500;">Demographic Parity</td>
+                            <td style="font-family: monospace; font-size: 1.1rem; color: var(--text);">0.34</td>
+                            <td class="text-muted">0.80</td>
+                            <td><span class="badge badge-danger">FAIL</span></td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: 500;">Equalized Odds</td>
+                            <td style="font-family: monospace; font-size: 1.1rem; color: var(--text);">0.41</td>
+                            <td class="text-muted">0.80</td>
+                            <td><span class="badge badge-danger">FAIL</span></td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: 500;">Disparate Impact Ratio</td>
+                            <td style="font-family: monospace; font-size: 1.1rem; color: var(--text);">0.52</td>
+                            <td class="text-muted">0.80</td>
+                            <td><span class="badge badge-danger">FAIL</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="two-col-layout">
+            <!-- BIAS FINGERPRINT -->
+            <div class="section-card" style="margin-bottom: 0;">
+                <h3 style="margin-bottom: 24px; font-size: 1.4rem;">Bias Fingerprint <span class="text-muted" style="font-size: 1rem; font-weight: 500;">— Intersectional Analysis</span></h3>
+                <div class="heatmap-wrapper">
+                    <div class="heatmap-grid" id="heatmapGrid"></div>
+                </div>
+            </div>
+
+            <!-- TIME-TRAVEL CHART -->
+            <div class="section-card" style="margin-bottom: 0;">
+                <h3 style="margin-bottom: 24px; font-size: 1.4rem;">Bias Progression Insight</h3>
+                <div class="chart-container" style="height: 250px; position: relative;">
+                    <canvas id="timeChart"></canvas>
+                </div>
+                <div style="margin-top: 24px; padding: 16px; background: rgba(255, 75, 75, 0.05); border-left: 4px solid var(--danger); border-radius: 0 8px 8px 0;">
+                    <p style="font-size: 0.95rem; color: var(--text-muted); margin: 0; line-height: 1.5;"><strong style="color: var(--text);">Insight:</strong> Bias worsened as the company scaled. Each model retrain amplified existing discriminatory patterns.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- FIX SUGGESTIONS -->
+        <h3 class="section-title" style="margin-top: 80px; margin-bottom: 32px; font-size: 2rem; text-align: left; letter-spacing: -0.5px;">Recommended Actions</h3>
+        <div class="fixes-grid">
+            <div class="fix-card">
+                <div class="fix-icon"><i class="fa-solid fa-weight-scale"></i></div>
+                <h4 style="margin-bottom: 12px;">Reweigh Historic Data</h4>
+                <p class="text-muted" style="font-size: 0.95rem;"> Apply sample reweighting to reduce demographic imbalance by ~30%</p>
+            </div>
+            <div class="fix-card">
+                <div class="fix-icon"><i class="fa-solid fa-eye-slash"></i></div>
+                <h4 style="margin-bottom: 12px;">Drop Proxy Variables</h4>
+                <p class="text-muted" style="font-size: 0.95rem;">Remove highly correlated features like "zipcode" and "years_experience" which act as proxies for race and age.</p>
+            </div>
+            <div class="fix-card" style="border-color: var(--primary); background: rgba(0, 196, 140, 0.05);">
+                <div class="fix-icon" style="color: var(--primary);"><i class="fa-solid fa-flask"></i></div>
+                <h4 style="margin-bottom: 12px; color: var(--text);">Counterfactual Test</h4>
+                <p class="text-muted" style="font-size: 0.95rem;">See exactly how changing a specific candidate's protected attributes flips the AI model's decision in real-time.</p>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 60px;">
+            <a href="fix.html" class="btn btn-primary btn-lg" style="box-shadow: 0 8px 24px rgba(0, 196, 140, 0.25);">Run Counterfactual Analysis <i class="fa-solid fa-arrow-right" style="margin-left: 8px;"></i></a>
+        </div>
+
+    </main>
+    
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-brand">
+                <i class="fa-solid fa-ban"></i> NullPointer
+            </div>
+            <div class="footer-text">
+                &copy; 2026 Google Solution Challenge
+            </div>
+        </div>
+    </footer>
+    <script src="config.js"></script>
+    <script src="results.js"></script>
+</body>
+</html>
