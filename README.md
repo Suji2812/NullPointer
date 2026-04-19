@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![NullPointer Banner](https://nullpointer-bias-2026-11a58.web.app/)
+
 
 **Find the bias your AI is hiding.**
 
